@@ -1,0 +1,12 @@
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- bioconda::cellsnp-lite=1.2.3
+- bioconda::flexiplex=1.02.5
+- bioconda::minimap2=2.28
+- bioconda::oarfish=0.7.0
+- bioconda::samtools=1.21
+- bioconda::seqkit=2.9.0
+- bioconda::vireosnp=0.5.8
+- conda-forge::pigz=2.8
