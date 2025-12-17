@@ -1,0 +1,44 @@
+Bootstrap: docker
+From: mambaorg/micromamba:1.5.10-noble
+
+%files
+    conda.yml /tmp/conda.yml
+
+%post
+    # Set up micromamba environment variables
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    export PATH="$MAMBA_ROOT_PREFIX/bin:$PATH"
+
+    # Install packages using micromamba
+    micromamba install -y -n base -f /tmp/conda.yml
+    micromamba install -y -n base conda-forge::procps-ng
+
+    # Create explicit lock file for reproducibility
+    micromamba env export --name base --explicit > /tmp/environment.lock
+
+    # Clean up to reduce image size
+    micromamba clean -a -y
+
+    # Remove unnecessary files
+    rm -rf /tmp/conda.yml
+    find $MAMBA_ROOT_PREFIX -name '__pycache__' -type d -exec rm -rf {} + 2>/dev/null || true
+    find $MAMBA_ROOT_PREFIX -name '*.pyc' -delete 2>/dev/null || true
+    find $MAMBA_ROOT_PREFIX -name '*.pyo' -delete 2>/dev/null || true
+
+%environment
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    export PATH="$MAMBA_ROOT_PREFIX/bin:$PATH"
+
+%runscript
+    exec "$@"
+
+%labels
+    Author lupus-workflow
+    Version 1.0
+
+%help
+    This container provides a complete environment for lupus-workflow analysis.
+    It includes R, Bioconductor packages, and various bioinformatics tools.
+
+    Usage:
+        singularity exec lupus-workflow.sif <command>
