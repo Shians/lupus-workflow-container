@@ -49,7 +49,7 @@ jobs:
       packages: write
 
     container:
-      image: quay.io/singularity/singularity:v3.8.7
+      image: quay.io/singularity/singularity:v3.10.4
       options: --privileged
 
     steps:
