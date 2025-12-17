@@ -1,12 +1,37 @@
+name: lupus-workflow
+
 channels:
-- conda-forge
 - bioconda
+- conda-forge
+
+channel_priority: strict
+
 dependencies:
-- bioconda::cellsnp-lite=1.2.3
-- bioconda::flexiplex=1.02.5
-- bioconda::minimap2=2.28
-- bioconda::oarfish=0.7.0
-- bioconda::samtools=1.21
-- bioconda::seqkit=2.9.0
-- bioconda::vireosnp=0.5.8
-- conda-forge::pigz=2.8
+  # R environment
+  - r-base=4.4.3
+  - r-optparse=1.7.5
+  - r-tidyverse=2.0.0
+  - r-logger=0.4.0
+
+  # Bioconductor packages
+  - bioconductor-biostrings=2.74.0
+
+  # Alignment and mapping tools
+  - minimap2=2.28
+  - oarfish=0.7.0
+
+  # SAM/BAM processing
+  - samtools=1.21
+  - bcftools=1.21
+  - htslib=1.21
+
+  # Sequence processing
+  - seqkit=2.9.0
+  - flexiplex=1.02.5
+
+  # Compression
+  - pigz=2.8
+
+  # Variant calling and genotyping
+  - cellsnp-lite=1.2.3
+  - vireosnp=0.5.8
