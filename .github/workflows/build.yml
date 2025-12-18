@@ -48,17 +48,17 @@ jobs:
       contents: read
       packages: write
 
-    container:
-      image: quay.io/singularity/singularity:v3.10.4
-      options: --privileged
-
     steps:
       - name: Check out the repo
         uses: actions/checkout@v5
 
       - name: Build Singularity image
         run: |
-          sudo -E singularity build lupus-workflow.sif lupus-workflow.def
+          docker run --rm --privileged \
+            -v ${{ github.workspace }}:/work \
+            -w /work \
+            quay.io/singularity/singularity:v3.10.4 \
+            build lupus-workflow.sif lupus-workflow.def
 
       - name: Login and push to GHCR (OCI format)
         env:
