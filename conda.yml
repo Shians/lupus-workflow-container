@@ -28,6 +28,7 @@ dependencies:
   # Sequence processing
   - seqkit=2.9.0
   - flexiplex=1.02.5
+  - umi_tools=1.1.6
 
   # Compression
   - pigz=2.8
