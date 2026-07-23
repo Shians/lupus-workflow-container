@@ -1,5 +1,24 @@
+# --- Builder stage: compile nailpolish from source ---
+# Built on Debian bookworm (glibc 2.36) so the binary stays compatible with the
+# Ubuntu noble runtime (glibc 2.39). nailpolish is not on bioconda.
+Bootstrap: docker
+From: rust:1-bookworm
+Stage: build
+
+%post
+    apt-get update
+    apt-get install -y --no-install-recommends cmake
+    rm -rf /var/lib/apt/lists/*
+    cargo install --git https://github.com/DavidsonGroup/nailpolish.git \
+        --tag v0.2.1 --root /usr/local
+
+# --- Runtime stage ---
 Bootstrap: docker
 From: mambaorg/micromamba:1.5.10-noble
+Stage: final
+
+%files from build
+    /usr/local/bin/nailpolish /usr/local/bin/nailpolish
 
 %files
     conda.yml

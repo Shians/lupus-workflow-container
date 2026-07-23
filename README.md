@@ -69,5 +69,8 @@ If you're on an HPC cluster, use the native Singularity image rather than conver
 - mosdepth 0.3.13
 - multiqc 1.33
 
+### Read Preprocessing
+- nailpolish 0.2.1 (compiled from source; not on bioconda)
+
 ### Other
 - pigz 2.8
